@@ -1,0 +1,60 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: zeek
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zeek
+  namespace: zeek
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zeek
+  template:
+    metadata:
+      labels:
+        app: zeek
+    spec:
+      containers:
+      - name: sensor
+        image: zeek-with-extras:0.0.1
+        workingDir: /usr/local/zeek/logs
+        command:
+          - /usr/local/zeek/bin/zeek
+        args:
+          - -i
+          - eth0
+          - -C
+          - LogAscii::use_json=T
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "500m"
+        volumeMounts:
+        - name: zeek-logs
+          mountPath: /usr/local/zeek/logs
+      - name: fluentbit
+        image: grafana/fluent-bit-plugin-loki:3.1.2
+        imagePullPolicy: IfNotPresent         
+        ports:
+          - name: metrics
+            containerPort: 2020
+            protocol: TCP
+        volumeMounts:
+          - name: config-volume
+            mountPath: /fluent-bit/etc/
+          - name: zeek-logs
+            mountPath: /usr/local/zeek/logs
+      volumes:
+        - name: zeek-logs
+          emptyDir: {}
+        - name: config-volume
+          configMap:
+            name: fluent-bit
