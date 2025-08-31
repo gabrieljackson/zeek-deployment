@@ -15,6 +15,14 @@ k3d cluster create $CLUSTER_NAME -p "80:80@loadbalancer" -p "443:443@loadbalance
 k3d image import zeek-with-extras:0.0.1 -c $CLUSTER_NAME
 
 echo ""
+echo "### DEPLOYING GRAFANA"
+kubectl apply -f grafana/grafana.yaml
+
+echo ""
+echo "### DEPLOYING LOKI"
+kubectl apply -f loki/loki.yaml
+
+echo ""
 echo "### DEPLOYING ZEEK"
 kubectl apply -f zeek/fluent-bit-config.yaml
 kubectl apply -f zeek/zeek.yaml
