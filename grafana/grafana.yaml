@@ -8,3 +8,15 @@ spec:
   chart: grafana
   targetNamespace: grafana
   createNamespace: true
+  valuesContent: |-
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+        - name: loki
+          type: loki
+          url: http://grafana-loki-gateway.loki.svc.cluster.local
+          jsonData:
+            httpHeaderName1: 'X-Scope-OrgId'
+          secureJsonData:
+            httpHeaderValue1: 'zeek'
