@@ -30,6 +30,15 @@ data:
         Name          stdout
         Match         *
 
+    [OUTPUT]
+        Name loki
+        Match *
+        Host grafana-loki-gateway.loki.svc.cluster.local
+        Port 80
+        tenant_id zeek
+        labels job=zeek,environment=test
+        line_format json
+
   parsers.conf: |
     [PARSER]
         Name   apache
