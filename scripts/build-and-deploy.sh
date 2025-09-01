@@ -29,9 +29,11 @@ k3d image import zeek-with-extras:0.0.1 -c $CLUSTER_NAME
 
 echo -e "\n### DEPLOYING GRAFANA"
 kubectl apply -f grafana/grafana.yaml
+kubectl apply -f grafana/ingress.yaml
 
 echo -e "\n### DEPLOYING LOKI"
 kubectl apply -f loki/loki.yaml
+kubectl apply -f loki/ingress.yaml
 
 echo -e "\n### DEPLOYING ZEEK"
 kubectl apply -f zeek/fluent-bit-config.yaml
@@ -46,11 +48,11 @@ echo "################################################"
 echo "###              CLUSTER DETAILS             ###"
 echo "################################################"
 echo ""
-echo "ZEEK WEB ENDPOINT: zeek.k3d.local"
+echo "ZEEK WEB ENDPOINT: zeek.k3d.localhost"
 echo ""
-echo "LOKI LOG ENDPOINT: loki.k3d.local"
+echo "LOKI LOG ENDPOINT: loki.k3d.localhost"
 echo ""
-echo "GRAFANA DASHBOARD: grafana.k3d.local"
+echo "GRAFANA DASHBOARD: grafana.k3d.localhost"
 echo "Username: admin"
 echo "Password: $(kubectl get secret --namespace grafana grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo)"
 echo ""
