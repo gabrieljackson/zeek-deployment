@@ -140,6 +140,12 @@ You can also manually interact with the `nginx` server at `zeek.k3d.localhost` t
 
 Grafana can be accessed via `grafana.k3d.localhost`. The credentials to log in are provided in the output from `make deploy` step.
 
+Logs from zeek will have the following structure:
+
+```
+{"ts":1756768757.929312,"uid":"CMgaqu1iqQsZSMjkg1","id.orig_h":"10.42.0.8","id.orig_p":34948,"id.resp_h":"10.42.0.11","id.resp_p":80,"trans_depth":2,"method":"GET","host":"zeek.k3d.localhost","uri":"/foo/bar/1756768757919","version":"1.1","user_agent":"Go-http-client/1.1","request_body_len":0,"response_body_len":153,"status_code":404,"status_msg":"Not Found","tags":[],"proxied":["X-FORWARDED-FOR -> 10.42.0.1"],"resp_fuids":["Fum1KL1Lg1JnNL7DYk"],"resp_mime_types":["text/html"]}
+```
+
 ### Cleaning Up
 
 When you are ready to remove the k3d cluster you can run `make destroy` to fully clean up the demo environment.
