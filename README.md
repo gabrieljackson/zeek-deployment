@@ -143,14 +143,26 @@ When you are ready to remove the k3d cluster you can run `make destroy` to fully
 
 ### FAQ
 
+---
+
 Q: I see helm is used for deploying helm services, but it doesn't need to be installed on the host running `k3d`?
+
 A: That's right, we used the [built-in Helm controller provided with k3s](https://docs.k3s.io/helm) to deploy the charts.
 
+---
+
 Q: There are a lot of network logs showing up in Loki/Grafana when I am not actively accessing the zeek nginx service. Why is that?
+
 A: Zeek is monitoring the interface for all traffic so it will create logs from k8s probes, loki log export traffic, and a few other reccuring processes.
 
+---
+
 Q: I encountered an issue with the provided scripts. What is going on?
+
 A: Development and testing for this project was done an arm-based macOS device, but any arm or x86 *nix based host should be able to run what is found here. Feel free to open an issue for assistance.
 
+---
+
 Q: I just created a demo cluster and don't see any logs yet. Why?
+
 A: The cluster services may still be coming online. Depending on the resources available on the host this could take a bit of time to complete.
