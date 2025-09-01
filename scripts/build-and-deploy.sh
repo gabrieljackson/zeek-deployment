@@ -58,6 +58,6 @@ echo "Password: $(kubectl get secret --namespace grafana grafana -o jsonpath="{.
 echo ""
 echo "### IMPORTANT! ###"
 echo "DNS records should be added to /etc/hosts or similar to easily access cluster services"
-echo "192.168.97.2    grafana.k3d.local"
+echo "192.168.97.2    grafana.k3d.localhost"
 echo "192.168.97.2    loki.k3d.localhost"
-echo "192.168.97.2    zeek.k3d.local"
+echo "192.168.97.2    zeek.k3d.localhost"
