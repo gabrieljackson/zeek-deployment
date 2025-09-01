@@ -42,6 +42,17 @@ wait_for_k8s_resource secret grafana grafana
 
 echo -e "\n### DEPLOYMENT COMPLETE!"
 
-echo -e "\n### GRAFANA LOGIN DETAILS:"
+echo "################################################"
+echo "###              CLUSTER DETAILS             ###"
+echo "################################################"
+echo ""
+echo "ZEEK WEB ENDPOINT: zeek.k3d.local"
+echo ""
+echo "GRAFANA DASHBOARD: grafana.k3d.local"
 echo "Username: admin"
 echo "Password: $(kubectl get secret --namespace grafana grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo)"
+echo ""
+echo "### IMPORTANT! ###"
+echo "DNS records should be added to /etc/hosts or similar to easily access cluster services"
+echo "192.168.97.2    grafana.k3d.local"
+echo "192.168.97.2    zeek.k3d.local"
