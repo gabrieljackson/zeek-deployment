@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: loki
+  namespace: loki
+spec:
+  ingressClassName: "traefik"
+  rules:
+  - host: loki.k3d.localhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana-loki
+            port:
+              number: 3100
